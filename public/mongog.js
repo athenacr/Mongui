@@ -535,7 +535,7 @@ Ext.onReady(function () {
 
 
     
-    Ext.BLANK_IMAGE_URL = 'lib/extjs/images/default/s.gif';	
+//    Ext.BLANK_IMAGE_URL = 'lib/extjs/images/default/s.gif';	
     Ext.QuickTips.init();
 
     var ctrlF = new Ext.KeyMap(document, [
