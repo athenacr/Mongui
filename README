@@ -1,0 +1,40 @@
+Mongog
+
+
+Server - The following ruby gems are required to run the server
+
+The server is built off of the Sinatrarb framework: http://www.sinatrarb.com/
+
+Gems that are required:
+bson (1.0)
+json (1.4.3, 1.2.0)
+mongo (1.0, 0.19.1)
+mongo_ext (0.19.1)
+rack (1.1.0)
+sinatra (1.0, 0.9.4)
+
+Optional gems:
+bson_ext (1.0)
+thin (1.2.7)
+yajl-ruby (0.7.5)
+
+
+Client
+
+The ExtJS framework is required to run the client, but is not included with the repo. 
+
+It can be found here:
+http://www.extjs.com/
+
+Download and unzip the framework.
+
+Rename the ext-3.2.1 directory 'extjs' and place it in the Mongog/public/lib directory.
+
+Running the server:
+cd Mongog
+ruby mongog.rb  #this will run the server.  See the Sinatrarb site (linked above) for more details.
+
+Point your browser to http://localhost:4567/mongog.html
+
+
+You did it!
