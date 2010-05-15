@@ -14,8 +14,6 @@ def get_hosts
     end
 end
 
-end
-
 HOSTS = get_hosts
 
 post '/show_dbs' do
