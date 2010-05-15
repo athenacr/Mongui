@@ -5,7 +5,18 @@ require 'time'
 require 'yajl/json_gem'
 
 HOST_DATA_FILE = 'mongo_hosts.dat'
-HOSTS = File.open(HOST_DATA_FILE,'r').readlines.collect{ |host| host.strip }
+
+def get_hosts
+    if File.exists? HOST_DATA_FILE
+        return File.open(HOST_DATA_FILE,'r').readlines.collect{ |host| host.strip }
+    else
+        return ['localhost']
+    end
+end
+
+end
+
+HOSTS = get_hosts
 
 post '/show_dbs' do
     
