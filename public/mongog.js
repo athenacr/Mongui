@@ -98,7 +98,7 @@ String.space = function (len) {
 };
 
 function aboutWindow() {
-    Ext.Msg.alert('Mongog','Based on code written by: <a href=mailto:turi.gabor@gmail.com>Gabor Turi</a>. <br><a href="http://jsonviewer.stack.hu/">http://jsonviewer.stack.hu/</a>');
+    Ext.Msg.alert('Mongog','Author:<br><a href=mailto:poulh@umich.edu>Poul Hornsleth</a><br>Associate Director of Operations<br><a target="_blank" href=http://www.athenacr.com/>Athena Capital Research</a><br><br>Results Pane:<br>Based on: <a target="_blank" href="http://jsonviewer.stack.hu/">JSON Viewer</a><br>Author: <a href=mailto:turi.gabor@gmail.com>Gabor Turi</a> <br><br>See how Athena Capital contributes to the open-source community <a target="_blank" href=http://www.athenacr.com/technology/open-source>here</a>.');
 }
 
 Ext.onReady(function () {
