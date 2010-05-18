@@ -1,8 +1,8 @@
-Mongog
+Mongui
 
-Mongog is a graphical interface for viewing and (eventually) editing data in a Mongo DB.
+Mongui is a graphical interface for viewing and (eventually) editing data in a Mongo DB.
 
-Mongog has a client/server architecture that relies on severaly open-source frameworks that are widely used.
+Mongui has a client/server architecture that relies on severaly open-source frameworks that are widely used.
 
 
 
@@ -34,14 +34,14 @@ yajl-ruby (0.7.5)
 
 
 Driver File:
-By default, the server connects to localhost.  To override this add a file named  'mongo_hosts.dat' in the same directory as mongog.rb.
+By default, the server connects to localhost.  To override this add a file named  'mongo_hosts.dat' in the same directory as mongui.rb.
 
 The file should contain the address of all your Mongo DBs.  One per line.
 
 Running the server:
-ruby mongog.rb  - this will run the server on port 4567
+ruby mongui.rb  - this will run the server on port 4567
 
-ruby mongog.rb -p <PORT>  - run Mongog on a different port.  See the Sinatra link above for more server options.
+ruby mongui.rb -p <PORT>  - run Mongui on a different port.  See the Sinatra link above for more server options.
 
 
 Client
@@ -53,11 +53,11 @@ http://www.extjs.com/
 
 Download and unzip the framework.
 
-Rename the ext-3.2.1 directory 'extjs' and place it in the Mongog/public/lib directory.
+Rename the ext-3.2.1 directory 'extjs' and place it in the Mongui/public/lib directory.
 
 Running the client:
 
-Point your browser to http://localhost:4567/mongog.html  after you have the server running. 
+Point your browser to http://localhost:4567/mongui.html  after you have the server running. 
 
 If you used the '-p' option when running the server you will need to change the port accordingly.
 
