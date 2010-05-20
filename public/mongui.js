@@ -98,7 +98,7 @@ String.space = function (len) {
 };
 
 function aboutWindow() {
-    Ext.Msg.alert('Mongog','Author:<br><a href=mailto:poulh@umich.edu>Poul Hornsleth</a><br>Associate Director of Operations<br><a target="_blank" href=http://www.athenacr.com/>Athena Capital Research</a><br><br>Results Pane:<br>Based on: <a target="_blank" href="http://jsonviewer.stack.hu/">JSON Viewer</a><br>Author: <a href=mailto:turi.gabor@gmail.com>Gabor Turi</a> <br><br>See how Athena Capital contributes to the open-source community <a target="_blank" href=http://www.athenacr.com/technology/open-source>here</a>.');
+    Ext.Msg.alert('Mongui','Author:<br><a href=mailto:poulh@umich.edu>Poul Hornsleth</a><br>Associate Director of Operations<br><a target="_blank" href=http://www.athenacr.com/>Athena Capital Research</a><br><br>Results Pane:<br>Based on: <a target="_blank" href="http://jsonviewer.stack.hu/">JSON Viewer</a><br>Author: <a href=mailto:turi.gabor@gmail.com>Gabor Turi</a> <br><br>See how Athena Capital contributes to the open-source community <a target="_blank" href=http://www.athenacr.com/technology/open-source>here</a>.');
 }
 
 Ext.onReady(function () {
@@ -120,7 +120,7 @@ Ext.onReady(function () {
 
 
 
-    var mongog = function () {
+    var mongui = function () {
         
         var m_hQueries = new Array(); //hash of queries... one per tab
         var m_activeQueryPanel = null;
@@ -190,7 +190,7 @@ Ext.onReady(function () {
 	                url: 'query',
 	                params: p,
                         success: function(request,result) {
-                            mongog.onCollectionDataRequest(request,result);
+                            mongui.onCollectionDataRequest(request,result);
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Server Error','A server-side error occurred executing the query');
@@ -221,7 +221,7 @@ Ext.onReady(function () {
 	                    url: 'query',
 	                    params: p,
                             success: function(request,result){
-                                mongog.onQueryRequest(request,result);
+                                mongui.onQueryRequest(request,result);
                             },
                             failure: function (response) {
                                 Ext.Msg.alert('Server Error','A server-side error occurred executing the query');
@@ -474,7 +474,7 @@ Ext.onReady(function () {
 		    },
 		    success: function (response) {
 			Ext.getCmp('edit').setValue(response.responseText);
-			mongog.format();
+			mongui.format();
 			Ext.getBody().unmask();
 		    },
 		    failure: function (response) {
@@ -513,7 +513,7 @@ Ext.onReady(function () {
 		    buttons: [{
 			text: 'Load JSON data!',
 			handler: function () {
-			    mongog.loadJson(win.items.get(0).getValue());
+			    mongui.loadJson(win.items.get(0).getValue());
 			    win.hide();
 			}
 		    }],
@@ -544,7 +544,7 @@ Ext.onReady(function () {
 	    ctrl: true,
 	    stopEvent: true,
 	    fn: function () {
-	        mongog.toggleToolbar();
+	        mongui.toggleToolbar();
 	    }
         },
         {
@@ -552,7 +552,7 @@ Ext.onReady(function () {
 	    ctrl: true,
 	    stopEvent: true,
 	    fn: function () {
-                mongog.runQuery()
+                mongui.runQuery()
 	    }        
         },
         {
@@ -597,7 +597,7 @@ Ext.onReady(function () {
             listeners: {
                 render: function (tree) {
         	    tree.getSelectionModel().on('selectionchange', function (tree, node) {
-        	        mongog.gridbuild(node);
+        	        mongui.gridbuild(node);
         	    });
                 }
             },
@@ -610,7 +610,7 @@ Ext.onReady(function () {
 	        new Ext.Button({
 	            text: 'GO!',
 	            handler:  function () {
-	                mongog.searchStart();
+	                mongui.searchStart();
 	            }
 	        }),
 	        new Ext.form.Label({
@@ -620,13 +620,13 @@ Ext.onReady(function () {
 	            iconCls: Ext.ux.iconCls.get('images/arrow_down.png'),
 	            text: 'Next',
 	            handler: function () {
-	                mongog.searchNext();
+	                mongui.searchNext();
 	            }
 	        }, {
 	            iconCls: Ext.ux.iconCls.get('images/arrow_up.png'),
 	            text: 'Previous',
 	            handler: function () {
-	                mongog.searchPrevious();
+	                mongui.searchPrevious();
 	            }
 	        }
 	    ]
@@ -646,11 +646,11 @@ Ext.onReady(function () {
             trackMouseOver: false,
             listeners: {
                 activate: function(p) {
-                    mongog.onFetchCollectionData();
+                    mongui.onFetchCollectionData();
                 },
                 render: function (tree) {
         	    tree.getSelectionModel().on('selectionchange', function (tree, node) {
-        	        mongog.gridbuild(node);
+        	        mongui.gridbuild(node);
         	    });
                 }
             },
@@ -662,9 +662,9 @@ Ext.onReady(function () {
         myMask.show();
         Ext.Ajax.request({
 	    url: 'query',
-	    params: mongog.getParams(),
+	    params: mongui.getParams(),
 	    success: function ( response ) {
-                mongog.check_text(response.responseText);
+                mongui.check_text(response.responseText);
                 myMask.hide();
 	    },
             failure: function (response) {
@@ -710,8 +710,8 @@ Ext.onReady(function () {
                     p.db = parts[3];
                     p.coll = parts[4];
                     
-                    mongog.setCurrentCollection(p);
-                    mongog.onFetchCollectionDataMaybe();
+                    mongui.setCurrentCollection(p);
+                    mongui.onFetchCollectionDataMaybe();
                 }
             },
             dblclick: function(node,e) {
@@ -722,8 +722,8 @@ Ext.onReady(function () {
                     p.db = parts[3];
                     p.coll = parts[4];
                     
-                    mongog.setCurrentCollection(p);
-                    mongog.onFetchCollectionData();
+                    mongui.setCurrentCollection(p);
+                    mongui.onFetchCollectionData();
                 }
             }
         },
@@ -795,19 +795,19 @@ Ext.onReady(function () {
             region: 'north',
 	    tbar: [
 	        // {text: 'Paste', handler: function () {
-	        //     mongog.pasteText();
+	        //     mongui.pasteText();
 	        // }},
 	        // {text: 'Copy', handler: function () {
-	        //     mongog.copyText();
+	        //     mongui.copyText();
 	        // }},
-	        {text: 'Run Query', handler: function() { mongog.runQuery()}},
+	        {text: 'Run Query', handler: function() { mongui.runQuery()}},
 	        '-',
 	        {text: 'Format', handler: function () {
-		    mongog.format();
+		    mongui.format();
 	        }},
                 ' ',
 	        {text: 'Remove white space', handler: function () {
-		    mongog.removeWhiteSpace();
+		    mongui.removeWhiteSpace();
 	        }},
 	        '-',
 	        // {text: 'Load JSON data', handler: function () {
@@ -858,11 +858,11 @@ Ext.onReady(function () {
             },
             listeners: {
                 activate: function(p) {
-                    mongog.setActiveQueryPanel(p);
+                    mongui.setActiveQueryPanel(p);
                     
                 },
                 close: function(p) {
-                    mongog.deleteQueryPanel(p);
+                    mongui.deleteQueryPanel(p);
                 } 
             }
         });
@@ -880,7 +880,7 @@ Ext.onReady(function () {
             tabCounter++;
             this.insert(count -1, newPanel);
             this.setActiveTab(count-1);
-            mongog.addQueryPanel(newPanel);
+            mongui.addQueryPanel(newPanel);
         },
     });
 
@@ -901,7 +901,7 @@ Ext.onReady(function () {
 
     
     function viewJson() {
-        mongog.check();
+        mongui.check();
     }
 
     var vp = new Ext.Viewport({
@@ -913,6 +913,6 @@ Ext.onReady(function () {
     });
 
     if (document.location.hash && document.location.hash.length) {
-	mongog.loadJson(document.location.hash.substring(1));
+	mongui.loadJson(document.location.hash.substring(1));
     }
 });
