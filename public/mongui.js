@@ -115,6 +115,8 @@ Ext.onReady(function () {
             result_json: null, //encoded text returned by query
             coll_data_text: null,
             coll_data_json: null,
+            stat_text: null,
+            stat_json: null,
         };
     };
 
@@ -162,11 +164,25 @@ Ext.onReady(function () {
                     this.fetchCollectionData();
                 }
             },
+            onFetchStats: function() {
+                if(this.getActiveQueryPanel() && this.getCurrentCollection()) {
+                    this.getActiveQueryPanel().infoTabPanel().setActiveTab(2);
+                    this.fetchStats();
+                }
+            },
             onFetchCollectionDataMaybe: function() {            //call onFetchCollectionData if Collection Tab active
                 if(this.getActiveQueryPanel() && this.getCurrentCollection()) {
                     var active_id = this.getActiveQueryPanel().infoTabPanel().getActiveTab().id;
                     if(active_id == this.getActiveQueryPanel().infoTabPanel().dataPanel().id) {
                         this.onFetchCollectionData();
+                    }
+                }
+            },
+            onFetchStatsMaybe: function() {            //call onFetchCollectionData if Collection Tab active
+                if(this.getActiveQueryPanel() && this.getCurrentCollection()) {
+                    var active_id = this.getActiveQueryPanel().infoTabPanel().getActiveTab().id;
+                    if(active_id == this.getActiveQueryPanel().infoTabPanel().statsPanel().id) {
+                        this.onFetchStats();
                     }
                 }
             },
@@ -181,6 +197,17 @@ Ext.onReady(function () {
                     this.treebuild(panel,mod.coll_data_json);
                 }
             },
+            onStatsRequest: function(response) {
+                var mod = this.getActiveQueryModel();
+                var text = response.responseText;
+                var json = this.check_text(text);
+                if(json != null) {
+                    mod.stat_text = text;
+                    mod.stat_json = json;
+                    panel = this.getActiveQueryPanel().infoTabPanel().statsPanel();
+                    this.treebuild(panel,mod.stat_json);
+                }
+            },
             fetchCollectionData: function() {
                 var p = this.getCurrentCollection();
                 p.query = null;
@@ -191,6 +218,23 @@ Ext.onReady(function () {
 	                params: p,
                         success: function(request,result) {
                             mongui.onCollectionDataRequest(request,result);
+                        },
+                        failure: function (response) {
+                            Ext.Msg.alert('Server Error','A server-side error occurred executing the query');
+                        }
+                    });
+                }
+            },
+            fetchStats: function() {
+                var p = this.getCurrentCollection();
+                p.query = null;
+                if(this.m_currentCollection) {
+                    
+                    Ext.Ajax.request({
+	                url: 'stats',
+	                params: p,
+                        success: function(request,result) {
+                            mongui.onStatsRequest(request,result);
                         },
                         failure: function (response) {
                             Ext.Msg.alert('Server Error','A server-side error occurred executing the query');
@@ -307,8 +351,8 @@ Ext.onReady(function () {
 			source[node.childNodes[i].text.substring(0, t)] = node.childNodes[i].text.substring(t + 1);
 		    }
 		}
-	        var grid = Ext.getCmp('grid');
-		grid.setSource(source);
+	     //   var grid = Ext.getCmp('grid');
+	//	grid.setSource(source);
 	    },
 	    json2leaf: function (json) {
 		var ret = [];
@@ -648,14 +692,41 @@ Ext.onReady(function () {
                 activate: function(p) {
                     mongui.onFetchCollectionData();
                 },
-                render: function (tree) {
-        	    tree.getSelectionModel().on('selectionchange', function (tree, node) {
-        	        mongui.gridbuild(node);
-        	    });
-                }
+                // render: function (tree) {
+        	//     tree.getSelectionModel().on('selectionchange', function (tree, node) {
+        	//         mongui.gridbuild(node);
+        	//     });
+                // }
             },
         });
     }
+
+
+
+ function newStatsPanel(idx) {
+        return new Ext.tree.TreePanel({
+    	    id: 'statPanel'+idx,
+            layout: 'fit',
+            title: 'Statistics',
+            rootVisible: false,
+	    loader: new Ext.tree.TreeLoader(),
+	    lines: true, 
+            root: new Ext.tree.TreeNode({text: 'JSON'}),
+            autoScroll: true,
+            trackMouseOver: false,
+            listeners: {
+                activate: function(p) {
+                    mongui.onFetchStats();
+                },
+                // render: function (tree) {
+        	//     tree.getSelectionModel().on('selectionchange', function (tree, node) {
+        	//         mongui.gridbuild(node);
+        	//     });
+                // }
+            },
+        });
+    }
+
 
     var execQuery = function() {
         var myMask = new Ext.LoadMask(Ext.getBody(), {msg:"Executing Query..."});
@@ -712,6 +783,7 @@ Ext.onReady(function () {
                     
                     mongui.setCurrentCollection(p);
                     mongui.onFetchCollectionDataMaybe();
+                    mongui.onFetchStatsMaybe();
                 }
             },
             dblclick: function(node,e) {
@@ -752,14 +824,14 @@ Ext.onReady(function () {
     //     });
     // }
 
-    function newStatsPanel(idx) {
-        return new Ext.Panel({
-            id: 'statsPanel'+idx,
-            layout: 'fit',
-            title: 'Statistics',
-        html: 'This tab will give you statistics about the host,db,collection you click on. What should we put here???'
-        });
-    }
+    // function newStatsPanel(idx) {
+    //     return new Ext.Panel({
+    //         id: 'statsPanel'+idx,
+    //         layout: 'fit',
+    //         title: 'Statistics',
+    //     html: 'This tab will give you statistics about the host,db,collection you click on. What should we put here???'
+    //     });
+    // }
 
     function newInfoTabPanel(idx) {
         return new Ext.TabPanel({

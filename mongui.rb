@@ -34,6 +34,7 @@ post '/show_dbs' do
         host_node[:text] = host
         host_node[:icon] = 'images/blue.gif'
         host_node[:children] = []
+
         m.database_names.each do |db_name|
 
             db = m.db(db_name)
@@ -44,7 +45,7 @@ post '/show_dbs' do
             db_node[:text] = db_name
             db_node[:icon] = 'images/db.gif'
             db_node[:children] = []
-            
+
             db.collection_names.each do |coll_name|
                 coll_node = {}
                 coll_node[:id] = counter
@@ -72,7 +73,6 @@ post '/query' do
 
     query = JSON.parse(params['query']) if params.has_key?('query')
 
-
     m = Mongo::Connection.new( params['host'],
                                27017,
                                :slave_ok => true).db(params['db']).collection( params['coll'])
@@ -85,6 +85,13 @@ post '/query' do
 
     return JSON.pretty_generate(rval) if rval.size
     return ""
+end
+
+post '/stats' do
+ m = Mongo::Connection.new( params['host'],
+                               27017,
+                               :slave_ok => true).db(params['db']).collection( params['coll'])
+    return JSON.pretty_generate(m.stats)
 end
 
 
