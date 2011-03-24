@@ -15,6 +15,7 @@ The server is built off of the *Sinatrarb framework*: [http://www.sinatrarb.com/
 The following ruby gems are required to run the server:
 
 Required Gems:
+
  * bson `(1.0)`
  * json `(1.4.3, 1.2.0)`
  * mongo `(1.0, 0.19.1)`
@@ -24,6 +25,7 @@ Required Gems:
  * yajl-ruby `(0.7.5)`
 
 Optional gems:
+
  * mongo_ext `(0.19.1)`
  * thin `(1.2.7)`
 
