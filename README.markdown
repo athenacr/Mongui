@@ -14,7 +14,7 @@ The server is built off of the *Sinatrarb framework*: [http://www.sinatrarb.com/
 #### Requirements
 The following ruby gems are required to run the server:
 
-*Required Gems:*
+Required Gems:
  * bson `(1.0)`
  * json `(1.4.3, 1.2.0)`
  * mongo `(1.0, 0.19.1)`
@@ -23,7 +23,7 @@ The following ruby gems are required to run the server:
  * bson_ext `(1.0)`
  * yajl-ruby `(0.7.5)`
 
-*Optional gems:*
+Optional gems:
  * mongo_ext `(0.19.1)`
  * thin `(1.2.7)`
 
@@ -44,20 +44,21 @@ The *ExtJS* framework is required to run the client, but is not included with th
 It can be found here: [http://www.sencha.com/products/extjs/](http://www.sencha.com/products/extjs/)
 
  * Download and unzip the framework.
- * Rename the `ext-3.2.1` directory '`extjs`' and place it in the `Mongui/public/lib` directory.
+ * Rename the `ext-3.2.1` directory `extjs` and place it in the `Mongui/public/lib` directory.
 
 #### Running the client:
-Point your browser to `http://localhost:4567/mongui.html` after you have the server running. 
-If you used the '`-p`' option when running the server you will need to change the port accordingly.
+Point your browser to `http://localhost:4567/mongui.html` after you have the server running.
+If you used the `-p` option when running the server you will need to change the port accordingly.
 
 #### Usage:
 If all is well so far you will see a three-paned webpage appear. 
 Left-pane, a drill down of `Host/DB/Collection`. Drill down and double click a selection.
 Double-clicking takes you to the the 'Collection Data' tab which shows you a few documents from your collection.
-To run a query, enter it in the upper pane and press '`Run Query`'. This will change your view to the '`Results`' tab and show you your data.
+To run a query, enter it in the upper pane and press `Run Query`. This will change your view to the `Results` tab and show you your data.
 
 #### Hot-Keys:
  * `CTRL R` * Run Query
  * `CTRL T` * New Query Tab
 
 ### You did it!
+Cheers!
